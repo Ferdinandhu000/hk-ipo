@@ -1,0 +1,526 @@
+/*
+ * 港股打新雷达 · 暗色 Glassmorphism 主题
+ *
+ * 配色：
+ *   主背景 #0E1117 | 卡片 rgba(30,34,50,0.7) + backdrop-filter
+ *   主渐变 #6C5CE7 → #00B4D8 | 语义色 绿 #00E676 / 黄 #FFD600 / 红 #FF5252
+ */
+
+/* ============================
+   📦 Google Fonts
+   ============================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+/* ============================
+   🌍 全局基础
+   ============================ */
+html, body, [data-testid="stAppViewContainer"] {
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    background-color: #0E1117 !important;
+    color: #EAEAEA;
+}
+
+/* 全局链接样式 */
+a { color: #00B4D8; text-decoration: none; }
+a:hover { color: #00E5FF; }
+
+/* ============================
+   🚫 隐藏 Streamlit 默认元素
+   ============================ */
+#MainMenu { visibility: hidden; }
+header[data-testid="stHeader"] { display: none !important; }
+footer { display: none !important; }
+div[data-testid="stDecoration"] { display: none !important; }
+div[data-testid="stToolbar"] { display: none !important; }
+
+/* 减小默认上边距 */
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    max-width: 1400px;
+}
+
+/* ============================
+   🃏 Glassmorphism 卡片
+   ============================ */
+.glass-card {
+    background: rgba(30, 34, 50, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(108, 92, 231, 0.3);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(108, 92, 231, 0.18);
+    border-color: rgba(108, 92, 231, 0.55);
+}
+
+/* 小号卡片（用于 KPI 指标） */
+.glass-card-sm {
+    background: rgba(30, 34, 50, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card-sm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.12);
+}
+
+/* ============================
+   📊 KPI 指标卡片
+   ============================ */
+.kpi-value {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6C5CE7 0%, #00B4D8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+.kpi-label {
+    font-size: 0.85rem;
+    color: #8B95A5;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+.kpi-delta-up {
+    color: #00E676;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.kpi-delta-down {
+    color: #FF5252;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ============================
+   📋 股票列表卡片行
+   ============================ */
+.stock-row {
+    background: rgba(30, 34, 50, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(108, 92, 231, 0.15);
+    border-radius: 12px;
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+}
+
+.stock-row:hover {
+    background: rgba(30, 34, 50, 0.85);
+    border-color: rgba(108, 92, 231, 0.5);
+    transform: translateX(4px);
+    box-shadow: 0 4px 24px rgba(108, 92, 231, 0.15);
+}
+
+.stock-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #EAEAEA;
+    line-height: 1.3;
+}
+
+.stock-code {
+    font-size: 0.8rem;
+    color: #8B95A5;
+    font-weight: 500;
+}
+
+/* 赛道标签 */
+.sector-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(108,92,231,0.2) 0%, rgba(0,180,216,0.15) 100%);
+    color: #00B4D8;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 180, 216, 0.25);
+    margin-left: 0.4rem;
+    vertical-align: middle;
+}
+
+/* ============================
+   🏷️ 评分徽章（三色）
+   ============================ */
+.score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 0.3rem 0.75rem;
+    border-radius: 10px;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* 高分（≥75） */
+.score-badge-green {
+    background: linear-gradient(135deg, #00E676 0%, #00B4D8 100%);
+    color: #0E1117;
+}
+
+/* 中分（50-74） */
+.score-badge-yellow {
+    background: linear-gradient(135deg, #FFD600 0%, #FF9100 100%);
+    color: #0E1117;
+}
+
+/* 低分（<50） */
+.score-badge-red {
+    background: linear-gradient(135deg, #FF5252 0%, #FF6B9D 100%);
+    color: #FFFFFF;
+}
+
+/* ============================
+   🔘 按钮样式
+   ============================ */
+/* 主按钮（渐变） */
+div.stButton > button {
+    background: linear-gradient(135deg, #6C5CE7 0%, #00B4D8 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 0.45rem 1.2rem !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3) !important;
+}
+
+div.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.45) !important;
+    filter: brightness(1.1) !important;
+}
+
+div.stButton > button:active {
+    transform: translateY(0) !important;
+}
+
+/* 次要按钮（幽灵风格） */
+.ghost-btn > button {
+    background: transparent !important;
+    border: 1px solid rgba(108, 92, 231, 0.4) !important;
+    color: #6C5CE7 !important;
+    box-shadow: none !important;
+}
+
+.ghost-btn > button:hover {
+    background: rgba(108, 92, 231, 0.1) !important;
+    border-color: #6C5CE7 !important;
+}
+
+/* ============================
+   🎯 建议行动标签
+   ============================ */
+.action-full-buy {
+    background: rgba(0, 230, 118, 0.15);
+    color: #00E676;
+    border: 1px solid rgba(0, 230, 118, 0.3);
+    padding: 0.25rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.action-one-lot {
+    background: rgba(255, 214, 0, 0.15);
+    color: #FFD600;
+    border: 1px solid rgba(255, 214, 0, 0.3);
+    padding: 0.25rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.action-skip {
+    background: rgba(255, 82, 82, 0.15);
+    color: #FF5252;
+    border: 1px solid rgba(255, 82, 82, 0.3);
+    padding: 0.25rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* ============================
+   📐 详情面板样式
+   ============================ */
+.detail-header {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6C5CE7 0%, #00B4D8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.detail-section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #EAEAEA;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 财务指标行 */
+.finance-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.finance-label {
+    color: #8B95A5;
+    font-size: 0.85rem;
+}
+
+.finance-value {
+    color: #EAEAEA;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ============================
+   🔢 AI 综合分数大号显示
+   ============================ */
+.big-score {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1;
+    padding: 0.5rem 0;
+}
+
+.big-score-green {
+    background: linear-gradient(135deg, #00E676 0%, #00B4D8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.big-score-yellow {
+    background: linear-gradient(135deg, #FFD600 0%, #FF9100 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.big-score-red {
+    background: linear-gradient(135deg, #FF5252 0%, #FF6B9D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================
+   📈 ROI 预测三档
+   ============================ */
+.roi-card {
+    text-align: center;
+    padding: 0.6rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.roi-optimistic {
+    background: rgba(0, 230, 118, 0.1);
+    border: 1px solid rgba(0, 230, 118, 0.25);
+}
+
+.roi-neutral {
+    background: rgba(255, 214, 0, 0.1);
+    border: 1px solid rgba(255, 214, 0, 0.25);
+}
+
+.roi-pessimistic {
+    background: rgba(255, 82, 82, 0.1);
+    border: 1px solid rgba(255, 82, 82, 0.25);
+}
+
+.roi-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.roi-label {
+    font-size: 0.75rem;
+    color: #8B95A5;
+    margin-top: 0.15rem;
+}
+
+/* ============================
+   📊 Plotly 图表容器
+   ============================ */
+div[data-testid="stPlotlyChart"] {
+    background: transparent !important;
+    border-radius: 12px;
+}
+
+/* ============================
+   🔲 侧边栏
+   ============================ */
+section[data-testid="stSidebar"] {
+    background: rgba(14, 17, 23, 0.95) !important;
+    border-right: 1px solid rgba(108, 92, 231, 0.15);
+}
+
+section[data-testid="stSidebar"] .block-container {
+    padding-top: 1.5rem !important;
+}
+
+/* 侧边栏标题 */
+.sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6C5CE7 0%, #00B4D8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.75rem;
+}
+
+/* 侧边栏指标 */
+.sidebar-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-metric-label {
+    color: #8B95A5;
+    font-size: 0.8rem;
+}
+
+.sidebar-metric-value {
+    color: #EAEAEA;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ============================
+   📣 底部 Footer
+   ============================ */
+.app-footer {
+    text-align: center;
+    color: #4A5568;
+    font-size: 0.72rem;
+    padding: 1.5rem 0 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 2rem;
+}
+
+/* ============================
+   🌊 动画
+   ============================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.6; }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+    background: linear-gradient(90deg, #6C5CE7, #00B4D8, #00E5FF, #6C5CE7);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+}
+
+/* ============================
+   📱 响应式微调
+   ============================ */
+@media (max-width: 768px) {
+    .kpi-value { font-size: 1.5rem; }
+    .big-score { font-size: 2.5rem; }
+    .stock-row { padding: 0.6rem 0.8rem; }
+}
+
+/* ============================
+   🎚️ Streamlit 组件覆写
+   ============================ */
+/* Radio 按钮 */
+div[data-testid="stRadio"] label {
+    color: #EAEAEA !important;
+}
+
+/* Selectbox */
+div[data-testid="stSelectbox"] {
+    color: #EAEAEA;
+}
+
+/* 分割线 */
+hr {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Expander */
+details {
+    background: rgba(30, 34, 50, 0.4) !important;
+    border: 1px solid rgba(108, 92, 231, 0.15) !important;
+    border-radius: 10px !important;
+}
+
+/* Metric 组件 */
+div[data-testid="stMetric"] {
+    background: rgba(30, 34, 50, 0.5);
+    border: 1px solid rgba(108, 92, 231, 0.15);
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+}
+
+div[data-testid="stMetric"] label {
+    color: #8B95A5 !important;
+}
+
+div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
+    color: #EAEAEA !important;
+}
