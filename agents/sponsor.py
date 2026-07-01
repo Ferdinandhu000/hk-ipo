@@ -130,9 +130,9 @@ class SponsorAgent:
                         if '保薦人' in td_text and len(td_text) < 10:
                             next_td = td.find_next_sibling('td')
                             if next_td:
-                                # 拆分保荐人，处理 ' 、 ' 或 ' , '
+                                # 拆分保荐人，处理 ' 、 ' 或 ' , ' 或换行符，但不拆分英文名中的空格
                                 sponsor_text = next_td.get_text(strip=True)
-                                parts = re.split(r'[、,，\s\xa0]+', sponsor_text)
+                                parts = re.split(r'[、,，\n\r]+', sponsor_text)
                                 raw_sponsors = [p.strip() for p in parts if p.strip()]
                                 break
             except Exception as e:

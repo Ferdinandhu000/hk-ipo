@@ -182,12 +182,12 @@ def create_sponsor_bar(sponsors: list[SponsorRecord]) -> go.Figure:
                 font=dict(size=10, color=Colors.TEXT_SECONDARY),
             ),
             yaxis=dict(
-                title="破发率 (%)", titlefont=dict(size=10, color=Colors.TEXT_SECONDARY),
+                title=dict(text="破发率 (%)", font=dict(size=10, color=Colors.TEXT_SECONDARY)),
                 gridcolor="rgba(255,255,255,0.05)", zeroline=False,
                 tickfont=dict(color=Colors.TEXT_SECONDARY, size=9),
             ),
             yaxis2=dict(
-                title="平均涨幅 (%)", titlefont=dict(size=10, color=Colors.TEXT_SECONDARY),
+                title=dict(text="平均涨幅 (%)", font=dict(size=10, color=Colors.TEXT_SECONDARY)),
                 overlaying="y", side="right", zeroline=False,
                 tickfont=dict(color=Colors.TEXT_SECONDARY, size=9),
             ),
